@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira Code">
+
+  <title>Document</title>
+  
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h2>HMO API Documentation <i class="fa fa-paw" aria-hidden="true"></i></h2>
+    </div>
+  </header>
+  <div class="body">
+    <div class="container">
+
+      <h3>Users Routs</h3>
+      <table class="table table-hover table2">
+        <tr>
+          <th class="Method">Method</th>
+          <th class="URL">URL</th>
+          <th class="Body">Body</th>
+          <th class="Description">Description</th>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/usersList</td>
+          <td>-</td>
+          <td>Get a list of all the users.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/userInfo/{ID number}</td>
+          <td>-</td>
+          <td>Get all information of a specific user by user's ID number.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/coronaInfo/{ID number}</td>
+          <td>-</td>
+          <td>Get corona information of a specific user by user's ID number.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/personalInfo/{ID number}</td>
+          <td>-</td>
+          <td>Get personal information of a specific user by user's ID number.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/usersNotVaccinated</td>
+          <td>-</td>
+          <td>Get the number of users who are not vaccinated.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/sickUsers</td>
+          <td>-</td>
+          <td>Get the number of patients who have previously been sick with Corona.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/usersList?lastName={last name}</td>
+          <td>-</td>
+          <td>Search users by last name. You can also search using a partial last name.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/usersList?mobilePhone={phone number}</td>
+          <td>-</td>
+          <td>Search user by his mobile phone number.
+          </td>
+        </tr>
+
+        <tr>
+          <td>GET</td>
+          <td>domain/users/usersList?city={city}</td>
+          <td>-</td>
+          <td>Search users by city
+          </td>
+        </tr>
+
+        <tr>
+          <td>POST</td>
+          <td>domain/users</td>
+          <td class="code">
+            { <br>
+            &nbsp"personalInfo":{<br>
+            &nbsp "firstName":"elisheva",<br>
+            &nbsp "lastName":"dales",<br>
+            &nbsp "IDNumber":"123456789",<br>
+            &nbsp "address":{<br>
+            &nbsp&nbsp "city":"Lod", <br>
+            &nbsp&nbsp "street":"haadmor haemzai",<br>
+            &nbsp&nbsp "number":1<br>
+            &nbsp },<br>
+            &nbsp "birthDate":"2022-01-01T00:00:00.000Z",<br>
+            &nbsp "phone":"035704930",<br>
+            &nbsp "mobilePhone":"0546923838" <br>
+            &nbsp }<br>
+            }
+
+          </td>
+          <td>Add a new user to the data base</td>
+        </tr>
+
+        <tr>
+          <td>POST</td>
+          <td>domain/users/{ID number}/vaccinations</td>
+          <td class="code">{<br>
+            &nbsp"dateGiven":"2022-01-01T00:00:00.000Z",<br>
+            &nbsp"manufacturer":"fizer"<br>
+            }
+          </td>
+          <td>Add a vaccine to a patient</td>
+        </tr>
+
+        <tr>
+          <td>POST</td>
+          <td>domain/users/{ID number}/positiveResult</td>
+          <td class="code">{<br>
+            &nbsp"positiveResultDate":"2021-01-01T00:00:00.000Z" <br>
+            }
+          </td>
+          <td>Add the date when the patient was found to be positive for corona</td>
+        </tr>
+
+        <tr>
+          <td>POST</td>
+          <td>domain/users/{ID number}/recoveryDate</td>
+          <td class="code">{<br>
+            &nbsp"recoveryDate":"2021-01-01T00:00:00.000Z" <br>
+            }
+          </td>
+          <td>Add a date when the patient recovered from corona</td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <p>This API belongs to Elisheva Dales <i class="fa fa-creative-commons" aria-hidden="true"></i></p>
+    </div>
+  </footer>
+</body>
+
+</html>
