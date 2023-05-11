@@ -14,8 +14,8 @@ router.get("/usersList", async (req, res) => {
 
   try {
     let data;
-    
-    
+
+
     if (req.query.city) {
       let searchByCityAdress = req.query.city.toLowerCase();
       data = await UserModel.find({ "personalInfo.address.city": searchByCityAdress });
@@ -132,7 +132,7 @@ router.post("/", async (req, res) => {
   try {
     let user = new UserModel(req.body);
     user.personalInfo.address.city = user.personalInfo.address.city.toLowerCase();
-    user.personalInfo.lastName =user.personalInfo.lastName.toLowerCase();
+    user.personalInfo.lastName = user.personalInfo.lastName.toLowerCase();
     user.personalInfo.firstName = user.personalInfo.firstName.toLowerCase();
     user.personalInfo.address.street = user.personalInfo.address.street.toLowerCase();
     await user.save();
@@ -147,6 +147,54 @@ router.post("/", async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+
+
+//add member's picture
+router.post("/avatar/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  console.log(req.files);
+  if (!req.files) {
+    return res.status(400).json({ msg: "You need to send file" });
+  }
+  let myFile = req.files["avatar"];
+
+
+
+  if (myFile.size > 1024 * 1024 * 2) {
+    return res.status(400).json({ msg: "File too big (max 2mb)" });
+  }
+
+  let exts_ar = [".png", ".jpeg", ".gif", ".jpg"];
+  let extFileName = path.extname(myFile.name);
+  if (!exts_ar.includes(extFileName)) {
+    return res.json({ msg: "File ext not allowed ,  just img file for web : png,jpeg,gif,jpg" })
+  }
+  //no need a date for avatar
+  let newName = req.tokenData._id + ".png";
+  //where to save the image, which name
+  myFile.mv("public/images/avatars/" + newName, async (err) => {
+    if (err) {
+      console.log(err)
+      return res.status(400).json({ msg: "There is a problem" });
+    }
+
+  // update user's img_url in DB
+    let updateData = await UserModel.updateOne({ _id: userId }, { img_url: newName })
+  })
+
+  //save preview image
+  try {
+    sharp(myFile.data)
+      .resize(200)
+      .toFile('public/images/previewAvatars' + newName);
+    let updateData = await UserModel.updateOne({ _id: userId }, { img_url_preview: "preview" + newName })
+    res.json({ msg: "original and preview files uploaded", status: 200 })
+  }
+  catch (err) {
+    console.log("resize" + err);
+  }
+
+},)
 
 
 //add vaccinations to user

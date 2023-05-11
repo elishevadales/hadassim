@@ -46,6 +46,10 @@ let userSchema = new mongoose.Schema({
       type: String,
       required: false
     },
+    img_url_preview:{
+      type: String,
+      required: false
+    },
     date_created: {
       type: Date,
       default: Date.now()

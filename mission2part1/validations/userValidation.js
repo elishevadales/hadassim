@@ -45,8 +45,7 @@ exports.validUser = (_reqBody) => {
       }),
       birthDate: Joi.date().max('now').required(),
       phone: Joi.string().pattern(/^[0-9]{9}$/),
-      mobilePhone: Joi.string().pattern(/^[0-9]{10}$/).required(),
-      img_url: Joi.string().min(0).max(1000).allow()
+      mobilePhone: Joi.string().pattern(/^[0-9]{10}$/).required()
     })
 
   })
